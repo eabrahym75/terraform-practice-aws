@@ -1,3 +1,29 @@
+# Create EC2 Instance - Ubuntu 20.04 for nginx
+resource "aws_instance" "my-nginx-server" {
+  ami           = ami-0aa2b7722dc1b5612
+  instance_type = t2.micro
+  key_name      = "aws-key"
+	user_data     =  "${file("install_nginx.sh")}"  
+  vpc_security_group_ids = [aws_vpc.my_test_vpc1.id]
+  tags = {
+    "Name" = "Ubuntu Nginx server"
+  }
+}
+
+
+# Create EC2 Instance - Ubuntu 20.04 for apache
+resource "aws_instance" "my-apache-server" {
+  ami           = ami-0aa2b7722dc1b5612
+  instance_type = t2.micro
+  key_name      = "aws-key"
+	user_data     =  "${file("install_apache.sh")}"  
+  vpc_security_group_ids = [aws_vpc.my_test_vpc1.id]
+  tags = {
+    "Name" = "Ubuntu Apache server"
+  }
+}
+
+
 # Create a VPC
 resource "aws_vpc" "my_test_vpc1" {
   cidr_block           = "10.0.0.0/16"
@@ -45,23 +71,3 @@ resource "aws_route" "route-inline" {
 
 }
 
-resource "aws_security_group" "my_asg" {
-
-  name = "My ASG"
-
-  # Allow inbound HTTP requests
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # Allow all outbound requests
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
