@@ -43,5 +43,25 @@ resource "aws_route" "route-inline" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.my_test_vpc1_Internetgateway.id
 
+}
 
+resource "aws_security_group" "my_asg" {
+
+  name = "My ASG"
+
+  # Allow inbound HTTP requests
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound requests
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
