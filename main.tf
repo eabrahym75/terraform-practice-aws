@@ -2,10 +2,6 @@
 resource "template_file" "user_data1" {
   template = "${file("install-nginx.sh")}"
 
-  vars {
-    package = "nginx"
-    command = "systemctl start nginx"
-  }
 }
 
 
@@ -18,7 +14,7 @@ resource "aws_instance" "my-nginx-server2ws" {
   vpc_security_group_ids = ["${aws_security_group.my_asg.id}"]
   
   # user_data : render the template
-  user_data     = "${template_file.user_data.rendered}"
+  user_data     = "${template_file.user_data1.rendered}"
 
   tags = {
     "Name" = "Ubuntu Nginx server"
@@ -28,11 +24,6 @@ resource "aws_instance" "my-nginx-server2ws" {
 # Refer to the template file - install-apache.sh
 resource "template_file" "user_data2" {
   template = "${file("install-apache.sh")}"
-
-  vars {
-    package = "apache2"
-    command = "systemctl start apache2"
-  }
 }
 # Create EC2 Instance - Ubuntu 20.04 for Apache
 resource "aws_instance" "my-apache-server1s3" {

@@ -4,7 +4,7 @@ resource "aws_lb_target_group" "web-servers-tg" {
   port        = 80
   protocol    = "HTTP"
   target_type = "instance"
-  vpc_id      = [aws_vpc.my_test_vpc1.id]
+  vpc_id      = aws_vpc.my_test_vpc1.id
 
   health_check {
     path                = "/"
