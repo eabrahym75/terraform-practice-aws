@@ -3,6 +3,7 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4.0"
+      region  = "us-east-1"
     }
   }
   # backend "s3" {
@@ -14,6 +15,6 @@ terraform {
 }
 
 # Configure the AWS Provider
-provider "aws" {
-  region = "us-east-1"
-}
+# provider "aws" {
+#   region = "us-east-1"
+# }
