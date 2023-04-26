@@ -4,7 +4,7 @@ resource "aws_lb_target_group" "web-servers-tg" {
   port        = 80
   protocol    = "HTTP"
   target_type = "instance"
-  vpc_id      = [aws_vpc.my_test_vpc1.id]
+  vpc_id      = aws_vpc.my_test_vpc1.id
 
   health_check {
     path                = "/"
@@ -67,11 +67,11 @@ resource "aws_lb_target_group_attachment" "instance-tg-attach-apache" {
 # ASG and component declaretion
 resource "aws_launch_template" "web-servers-lt" {
   name                   = "web-servers-lt"
-  ami               = "ami-0aa2b7722dc1b5612"
+  image_id               = "ami-0aa2b7722dc1b5612"
   instance_type          = "t2.micro"
   key_name               = "aws_key"
   vpc_security_group_ids = ["${aws_security_group.my_asg.id}"]
-  user_data     = ["${template_file.user_data.rendered}","${template_file.user_data2.rendered}"]
+  user_data     = base64encode("${data.template_file.user_data1.rendered}")
 
   tag_specifications {
     resource_type = "instance"
