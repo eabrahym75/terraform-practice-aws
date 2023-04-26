@@ -1,5 +1,5 @@
 # Refer to the template file - install_nginx.sh
-resource "template_file" "user_data" {
+resource "template_file" "user_data1" {
   template = "${file("install-nginx.sh")}"
 
   vars {
