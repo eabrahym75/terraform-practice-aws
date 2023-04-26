@@ -7,8 +7,6 @@ terraform {
   }
   backend "s3" {
     bucket = "bucket-ayantola"
-    key    = "aws/bucket-ayantola/terraform.tfstate"
-    region = "us-east-1"
   
   }
 }
