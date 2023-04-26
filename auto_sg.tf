@@ -71,7 +71,7 @@ resource "aws_launch_template" "web-servers-lt" {
   instance_type          = "t2.micro"
   key_name               = "aws_key"
   vpc_security_group_ids = ["${aws_security_group.my_asg.id}"]
-  user_data     = ["${template_file.user_data.rendered}","${template_file.user_data2.rendered}"]
+  user_data     = ["${template_file.user_data1.rendered}","${template_file.user_data2.rendered}"]
 
   tag_specifications {
     resource_type = "instance"
