@@ -50,7 +50,7 @@ resource "aws_lb_listener" "front_end" {
 
 
 # Attach Nginx Instance to a Target group
-resource "aws_lb_target_group_attachment" "instance-tg-attach-apache" {
+resource "aws_lb_target_group_attachment" "instance-tg-attach-nginx" {
   target_group_arn = aws_lb_target_group.web-servers-tg.arn
   target_id        = aws_instance.my-nginx-server2ws.id
   port             = 80
