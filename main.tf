@@ -1,25 +1,49 @@
+# Refer to the template file - install_nginx.sh
+resource "template_file" "user_data" {
+  template = "${file("install-nginx.sh")}"
+
+  vars {
+    package = "nginx"
+    command = "systemctl start nginx"
+  }
+}
+
+
 # Create EC2 Instance - Ubuntu 20.04 for nginx
 resource "aws_instance" "my-nginx-server2ws" {
-  ami           = "ami-0aa2b7722dc1b5612"
-  instance_type = "t2.micro"
-  availability_zone = "us-east-1a"
-  key_name      = "aws_key"
-	user_data     =  "${file("install-nginx.sh")}"  
+  ami                    = "ami-0aa2b7722dc1b5612"
+  instance_type          = "t2.micro"
+  availability_zone      = "us-east-1a"
+  key_name               = "aws_key"
   vpc_security_group_ids = ["${aws_security_group.my_asg.id}"]
+  
+  # user_data : render the template
+  user_data     = "${template_file.user_data.rendered}"
+
   tags = {
     "Name" = "Ubuntu Nginx server"
   }
 }
 
+# Refer to the template file - install-apache.sh
+resource "template_file" "user_data2" {
+  template = "${file("install-apache.sh")}"
 
-# Create EC2 Instance - Ubuntu 20.04 for apache
+  vars {
+    package = "apache2"
+    command = "systemctl start apache2"
+  }
+}
+# Create EC2 Instance - Ubuntu 20.04 for Apache
 resource "aws_instance" "my-apache-server1s3" {
-  ami           = "ami-0aa2b7722dc1b5612"
-  instance_type = "t2.micro"
-  availability_zone = "us-east-1a"
-  key_name      = "aws_key"
-	user_data     =  "${file("install-apache.sh")}"  
+  ami                    = "ami-0aa2b7722dc1b5612"
+  instance_type          = "t2.micro"
+  availability_zone      = "us-east-1a"
+  key_name               = "aws_key"
   vpc_security_group_ids = ["${aws_security_group.my_asg.id}"]
+  # user_data : render the template
+  user_data     = "${template_file.user_data2.rendered}"
+
   tags = {
     "Name" = "Ubuntu Apache server"
   }
