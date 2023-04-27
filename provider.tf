@@ -6,14 +6,13 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "bucket-eabrahym"
-    key    = "aws/bucket-eabrahym/terraform.tfstate"
-    region = "us-east-1"
-  
+    bucket = "bucket-ayantola"
+    key = "/bucket-ayantola/terraform.tfstate"
   }
 }
 
 #Configure the AWS Provider
 provider "aws" {
   region = "us-east-1"
+  credential = "~/.aws/config"
 }
