@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "bucket-ayantola"
-  
+    key = "/bucket-ayantola/terraform.tfstate"
   }
 }
 
