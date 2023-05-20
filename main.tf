@@ -64,6 +64,16 @@ resource "aws_subnet" "my_test_vpc1_PublicSubnet" {
   }
 }
 
+resource "aws_subnet" "my_test_vpc1_PublicSubnet2" {
+  vpc_id                  = aws_vpc.my_test_vpc1.id
+  cidr_block              = "10.0.2.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "us-east-1b"
+
+  tags = {
+    Name = "Public Subnet 2"
+  }
+}
 # create internet gateway
 resource "aws_internet_gateway" "my_test_vpc1_Internetgateway" {
   vpc_id = aws_vpc.my_test_vpc1.id

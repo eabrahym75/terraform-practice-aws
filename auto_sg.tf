@@ -26,7 +26,7 @@ resource "aws_lb" "web-servers-lb" {
   load_balancer_type = "application"
   ip_address_type    = "ipv4"
   security_groups    = [aws_security_group.my_asg.id]
-  subnets            = [aws_subnet.my_test_vpc1_PublicSubnet.id]
+  subnets            = [aws_subnet.my_test_vpc1_PublicSubnet.id, aws_subnet.my_test_vpc1_PublicSubnet2.id]
 
   enable_deletion_protection = false
 
