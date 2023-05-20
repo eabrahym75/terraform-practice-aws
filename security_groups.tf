@@ -1,6 +1,7 @@
 resource "aws_security_group" "my_asg" {
 
   name = "My ASG"
+  vpc_id = aws_vpc.my_test_vpc1.id
 
   # Allow inbound HTTP requests
   ingress {
